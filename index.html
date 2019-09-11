@@ -1,15 +1,26 @@
 <html>
   <head>
-    <script src="dist/index.js"></script>
+    <script src="index.js"></script>
+
     <script>
-      function request() {
+      function fetchReq() {
         fetch('https://tests.free.beeceptor.com/path').then(() => {
           console.log('request successful');
         })
       }
+      function xhrReq() {
+          var xmlHttp = new XMLHttpRequest();
+          xmlHttp.onreadystatechange = function() { 
+              if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+                console.log('request successful');
+          }
+          xmlHttp.open("GET", 'https://tests.free.beeceptor.com/path', true); // true for asynchronous 
+          xmlHttp.send(null);
+      }
     </script>
   </head>
   <div>
-    <button onclick="request()">Load something</button>
+    <button onclick="fetchReq()">Fetch</button>
+    <button onclick="xhrReq()">XHR</button>
   </div>
 </html>
