@@ -1,8 +1,15 @@
 <html>
   <head>
-    <script></script>
+    <script src="dist/index.js"></script>
+    <script>
+      function request() {
+        fetch('https://tests.free.beeceptor.com/path').then(() => {
+          console.log('request successful');
+        })
+      }
+    </script>
   </head>
   <div>
-    <button></button>
+    <button onclick="request()">Load something</button>
   </div>
 </html>

@@ -4,6 +4,8 @@
   "description": "play songs while fetching data",
   "main": "dist/index.js",
   "scripts": {
+    "start": "tsc -w",
+    "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -11,5 +13,9 @@
     "loading"
   ],
   "author": "Florian Glappa",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.3"
+  }
 }
