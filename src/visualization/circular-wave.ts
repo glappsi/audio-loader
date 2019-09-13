@@ -1,5 +1,6 @@
 import { init } from 'echarts';
 import { debounce } from 'lodash';
+import domReady from '../lib/dom-ready';
 
 export class CircularAudioWave {
   lastMaxR = 0;
@@ -136,7 +137,7 @@ export class CircularAudioWave {
     this.container = container;
     this.canvas = canvas;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    domReady().then(() => {
       document.body.appendChild(container);
       if (document.body.clientWidth > 672) {
         this.container.style.height = '200px';

@@ -1,5 +1,6 @@
 import { AudioLoader } from './src/index';
 AudioLoader(['assets/loading.mp3'], {
   withVisualization: true,
-  oneSoundPerRequest: false
+  oneSoundPerRequest: false,
+  withProgressBar: false
 });
