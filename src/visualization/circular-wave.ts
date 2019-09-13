@@ -128,26 +128,26 @@ export class CircularAudioWave {
   analyser?: AnalyserNode;
   _debouncedDraw: Function;
   currentAnimationFrame?: number;
-  container: HTMLCanvasElement;
+  container: HTMLDivElement;
+  canvas: HTMLCanvasElement;
 
   constructor(audioContext: AudioContext, masterGain: GainNode) {
-    const container = document.createElement('canvas') as HTMLCanvasElement;
+    const { container, canvas } = this.createContainer();
+    this.container = container;
+    this.canvas = canvas;
+
     document.addEventListener('DOMContentLoaded', () => {
       document.body.appendChild(container);
+      if (document.body.clientWidth > 672) {
+        this.container.style.height = '200px';
+        this.container.style.textAlign = 'center';
+        this.container.style.boxShadow = '0 0 20px 1px rgba(255,255,255,0.7)';
+        this.canvas.style.width = '400px';
+      }
     });
 
-    this.container = container;
-    this.container.style.position = 'fixed';
-    this.container.style.bottom = '0px';
-    this.container.style.left = '0px';
-    this.container.style.width = '100vw';
-    this.container.style.height = '25vh';
-    this.container.style.opacity = '0';
-    this.container.style.zIndex = '9999';
-    this.container.style.transition = '0.5s opacity';
-
     this.context = audioContext;
-    this.chart = init(this.container);
+    this.chart = init(this.canvas);
     this.chart.setOption(this.chartOptions, true);
     this._debouncedDraw = debounce(this._drawAnimation.bind(this), 25);
 
@@ -160,9 +160,34 @@ export class CircularAudioWave {
     }
   }
 
+  createContainer() {
+    const container = document.createElement('div') as HTMLDivElement;
+    const canvas = document.createElement('canvas') as HTMLCanvasElement;
+
+    container.classList.add('circular-wave-container');
+    container.style.position = 'fixed';
+    container.style.bottom = '0px';
+    container.style.left = '0px';
+    container.style.width = '100vw';
+    container.style.height = '25vh';
+    container.style.opacity = '0';
+    container.style.zIndex = '-1';
+    container.style.transition = '0.5s opacity';
+    container.style.backgroundColor = 'rgba(255,255,255,0.5)';
+
+    canvas.classList.add('circular-wave-canvas');
+    canvas.style.height = '100%';
+    canvas.style.width = '100%';
+
+    container.appendChild(canvas);
+
+    return { canvas, container };
+  }
+
   start(bpm: number) {
     this.container.classList.add('started');
     this.container.style.opacity = '1';
+    this.container.style.zIndex = '9999';
     this._setBpm(bpm);
     this._debouncedDraw();
   }
@@ -170,6 +195,7 @@ export class CircularAudioWave {
   stop() {
     this.container.classList.add('stopped');
     this.container.style.opacity = '0';
+    this.container.style.zIndex = '-1';
     if (this.currentAnimationFrame) {
       cancelAnimationFrame(this.currentAnimationFrame);
     }
