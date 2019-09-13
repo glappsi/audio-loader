@@ -13,13 +13,25 @@ export function AudioLoader(
   }
 ) {
   const playlist = new Playlist(sources, options);
+  let requestsCount = 0;
   const start = () => {
-    if (options.withProgressBar) {
-      show();
+    // just start this for the first request
+    if (requestsCount === 0) {
+      if (options.withProgressBar) {
+        show();
+      }
+      playlist.play();
     }
-    playlist.play();
+    requestsCount++;
   };
   const end = () => {
+    requestsCount--;
+    // if this counter is above zero, there are multiple requests pending
+    // wait for all of them to finish
+    if (requestsCount > 0) {
+      return;
+    }
+
     if (options.withProgressBar) {
       hide();
     }

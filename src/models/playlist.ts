@@ -16,7 +16,6 @@ export class Playlist {
   fadeInInMs = 1000;
   fadeOutInMs = 1200;
   circularWave?: CircularAudioWave;
-  currentPlayingCounter = 0;
 
   constructor(sources: string[], options: IOptions) {
     this.options = options;
@@ -41,7 +40,6 @@ export class Playlist {
         // do not continue to play the next sound
         // instead pause the playlist here
         if (this.options.oneSoundPerRequest) {
-          this.currentPlayingCounter = 0;
           if (this.circularWave) {
             this.circularWave.stop();
           }
@@ -67,13 +65,6 @@ export class Playlist {
   play() {
     const { playable, bpm } = this.sounds[this.currentIndex];
 
-    // increase the current playing counter for multiple requests
-    // after the first one the playable is playing
-    if (playable.playing()) {
-      this.currentPlayingCounter++;
-      return;
-    }
-
     if (this.circularWave) {
       this.circularWave.start(bpm || 120);
     }
@@ -91,13 +82,6 @@ export class Playlist {
     }
 
     if (!playable.playing()) {
-      return;
-    }
-
-    // id this counter is above zero, there are multiple requests pending
-    // wait for all of them to finish
-    if (this.currentPlayingCounter > 0) {
-      this.currentPlayingCounter--;
       return;
     }
 
