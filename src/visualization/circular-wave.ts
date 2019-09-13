@@ -157,7 +157,7 @@ export class CircularAudioWave {
     } else {
       this.analyser = this.context.createAnalyser();
       masterGain.connect(this.analyser);
-      this.analyser.connect(audioContext.destination);
+      // this.analyser.connect(audioContext.destination);
     }
   }
 
