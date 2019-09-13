@@ -1,10 +1,13 @@
 import * as fetchIntercept from 'fetch-intercept';
+import { DISABLE_HEADER } from '..';
 
 export default (start: Function, end: Function) => {
   fetchIntercept.register({
     request: function(url, config) {
+      const audioLoaderDisabled =
+        config && config.headers && config.headers[DISABLE_HEADER];
       // Modify the url or config here
-      start();
+      !audioLoaderDisabled && start();
       return [url, config];
     },
 

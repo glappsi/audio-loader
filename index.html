@@ -1,26 +1,31 @@
 <html>
   <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <script src="index.js"></script>
 
     <script>
       function fetchReq() {
-        fetch('https://tests.free.beeceptor.com/path').then(() => {
+        fetch('https://audioloader.free.beeceptor.com/load').then(() => {
           console.log('request successful');
         })
       }
       function xhrReq() {
           var xmlHttp = new XMLHttpRequest();
+          xmlHttp.open("GET", 'https://audioloader.free.beeceptor.com/load', true);
+          // xmlHttp.setRequestHeader('X-AUDIO-LOADER-OFF', 'yes');
           xmlHttp.onreadystatechange = function() { 
               if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
                 console.log('request successful');
           }
-          xmlHttp.open("GET", 'https://tests.free.beeceptor.com/path', true); // true for asynchronous 
           xmlHttp.send(null);
       }
     </script>
   </head>
-  <div>
-    <button onclick="fetchReq()">Fetch</button>
-    <button onclick="xhrReq()">XHR</button>
-  </div>
+  <body style="background: #efefef;">
+    <div>
+      <button onclick="fetchReq()">Fetch</button>
+      <button onclick="xhrReq()">XHR</button>
+    </div>
+  </body>
 </html>

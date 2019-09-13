@@ -15,6 +15,9 @@
   "author": "Florian Glappa",
   "license": "ISC",
   "devDependencies": {
+    "@types/echarts": "^4.1.12",
+    "@types/howler": "^2.1.1",
+    "@types/lodash.debounce": "^4.0.6",
     "ts-loader": "^6.1.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.3",
@@ -22,7 +25,10 @@
     "webpack-cli": "^3.3.8"
   },
   "dependencies": {
-    "whatwg-fetch": "^3.0.0",
-    "fetch-intercept": "^2.3.1"
+    "echarts": "^4.2.1",
+    "fetch-intercept": "^2.3.1",
+    "howler": "^2.1.2",
+    "lodash": "^4.17.15",
+    "whatwg-fetch": "^3.0.0"
   }
 }
