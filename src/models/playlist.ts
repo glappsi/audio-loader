@@ -66,12 +66,16 @@ export class Playlist {
   }
 
   pause() {
+    const { playable } = this.sounds[this.currentIndex];
+    if (!playable.playing()) {
+      return;
+    }
+
     if (this.currentPlayingCounter > 0) {
       this.currentPlayingCounter--;
       return;
     }
 
-    const { playable } = this.sounds[this.currentIndex];
     if (this.circularWave) {
       this.circularWave.stop();
     }
