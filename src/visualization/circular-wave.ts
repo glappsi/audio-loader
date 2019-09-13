@@ -7,7 +7,6 @@ export class CircularAudioWave {
   minChartValue = 100;
   playing = false;
   lineColorOffset = 0;
-  tick = 0;
   bgColor = '#2E2733';
   chartOptions = {
     angleAxis: {
@@ -174,6 +173,7 @@ export class CircularAudioWave {
     if (this.currentAnimationFrame) {
       cancelAnimationFrame(this.currentAnimationFrame);
     }
+    this.reset();
   }
 
   destroy() {
@@ -181,37 +181,8 @@ export class CircularAudioWave {
   }
 
   reset() {
-    this.tick = 0;
     this.currentChartOptions = JSON.parse(JSON.stringify(this.chartOptions));
   }
-
-  // TODO: Allow callback
-  // onended() {
-  //   if (!this.opts.loop) {
-  //     this.playing = false;
-  //     this.context.close();
-  //     this.sourceNode.buffer = null;
-  //     this.offlineSource.buffer = null;
-  //     this.reset();
-
-  //     this.context = new AudioContext();
-  //     this.offlineContext = new OfflineAudioContext(2, 30 * 44100, 44100);
-  //     this.sourceNode = this.context.createBufferSource();
-  //     this.offlineSource = this.offlineContext.createBufferSource();
-  //     this.analyser = this.context.createAnalyser();
-  //     this.loadAudio(this.filePath);
-  //   }
-  // }
-
-  // _setupAudioNodes() {
-  //   this.analyser.smoothingTimeConstant = 0.3;
-  //   this.analyser.fftSize = 2048;
-
-  //   this.sourceNode.connect(this.analyser);
-
-  //   this.sourceNode.connect(this.context.destination);
-  //   this.sourceNode.onended = this.onended.bind(this);
-  // }
 
   _setBpm(bpm: number) {
     this.currentChartOptions.series[0].animation = false;
@@ -252,7 +223,6 @@ export class CircularAudioWave {
     );
 
     this.chart.setOption(this.currentChartOptions, true);
-    this.tick++;
   }
 
   _generateWaveData(data: any) {

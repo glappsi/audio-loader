@@ -14,7 +14,7 @@ export class Playlist {
   currentIndex = 0;
   currentSoundId = 0;
   fadeInInMs = 1000;
-  fadeOutInMs = 2000;
+  fadeOutInMs = 1200;
   circularWave?: CircularAudioWave;
   currentPlayingCounter = 0;
 
@@ -31,10 +31,21 @@ export class Playlist {
     const playable = new Howl({
       src: [src],
       onend: () => {
+        // jump to the next sound after the first if there is one
         if (this.currentIndex < this.sounds.length - 1) {
           this.currentIndex++;
         } else {
           this.currentIndex = 0;
+        }
+
+        // do not continue to play the next sound
+        // instead pause the playlist here
+        if (this.options.oneSoundPerRequest) {
+          this.currentPlayingCounter = 0;
+          if (this.circularWave) {
+            this.circularWave.stop();
+          }
+          return;
         }
 
         setTimeout(() => {
@@ -44,14 +55,20 @@ export class Playlist {
     });
 
     const result: ISound = { playable };
+
     if (this.options.withVisualization) {
+      // calculate the bpm for the waves ripple effect
       calculateBpm(src).then((bpm: any) => (result.bpm = bpm));
     }
+
     return result;
   }
 
   play() {
     const { playable, bpm } = this.sounds[this.currentIndex];
+
+    // increase the current playing counter for multiple requests
+    // after the first one the playable is playing
     if (playable.playing()) {
       this.currentPlayingCounter++;
       return;
@@ -67,10 +84,18 @@ export class Playlist {
 
   pause() {
     const { playable } = this.sounds[this.currentIndex];
+
+    // ignore pause since we wait till the sound ended
+    if (this.options.oneSoundPerRequest) {
+      return;
+    }
+
     if (!playable.playing()) {
       return;
     }
 
+    // id this counter is above zero, there are multiple requests pending
+    // wait for all of them to finish
     if (this.currentPlayingCounter > 0) {
       this.currentPlayingCounter--;
       return;

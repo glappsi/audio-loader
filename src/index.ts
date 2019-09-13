@@ -5,7 +5,7 @@ import { IOptions } from './models/options';
 
 export function AudioLoader(
   sources: string[],
-  options: IOptions = { withVisualization: true }
+  options: IOptions = { withVisualization: true, oneSoundPerRequest: false }
 ) {
   const playlist = new Playlist(sources, options);
   const start = () => playlist.play();

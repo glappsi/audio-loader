@@ -6,13 +6,13 @@
 
     <script>
       function fetchReq() {
-        fetch('https://audioloader.free.beeceptor.com/load').then(() => {
+        fetch('https://loader.free.beeceptor.com/load').then(() => {
           console.log('request successful');
         })
       }
       function xhrReq() {
           var xmlHttp = new XMLHttpRequest();
-          xmlHttp.open("GET", 'https://audioloader.free.beeceptor.com/load', true);
+          xmlHttp.open("GET", 'https://loader.free.beeceptor.com/load', true);
           // xmlHttp.setRequestHeader('X-AUDIO-LOADER-OFF', 'yes');
           xmlHttp.onreadystatechange = function() { 
               if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
