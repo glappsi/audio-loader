@@ -1,7 +1,7 @@
 {
-  "name": "audio-loading",
-  "version": "0.1.0",
-  "description": "play songs while fetching data",
+  "name": "@audio/loader",
+  "version": "1.0.0",
+  "description": "play songs while fetching data, with visualization",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack --config webpack.config.js --watch",
@@ -10,9 +10,24 @@
   },
   "keywords": [
     "audio",
-    "loading"
+    "loading",
+    "xhr",
+    "fetch",
+    "interceptor",
+    "audio visualization",
+    "loading bar",
+    "sound",
+    "playlist"
   ],
-  "author": "Florian Glappa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/glappsi/audio-loader"
+  },
+  "bugs": {
+    "url": "https://github.com/glappsi/audio-loader/issues"
+  },
+  "types": "dist/index.d.ts",
+  "author": "Florian Glappa <glappa.js@gmail.com>",
   "license": "ISC",
   "devDependencies": {
     "@types/echarts": "^4.1.12",

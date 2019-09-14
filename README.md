@@ -3,17 +3,19 @@ Start songs/sounds while performing a request. With audio visualization (opt out
 
 You just have to tell the lib which sounds it should use and then you are good to go.
 
+## Demo
+
 Have a look at the [DEMO](https://glappsi.github.io/audio-loader/).
 
 ## Installation
 ```
-npm i --save <repo-name>
+npm i --save @audio/loader
 ```
 
 ## Usage
 Call it once, at the start of your application
 ```
-import { AudioLoader } from '<repo-name>';
+import { AudioLoader } from '@audio/loader';
 AudioLoader(['assets/loading.mp3'], <options>);
 ```
 
