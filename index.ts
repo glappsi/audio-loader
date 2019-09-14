@@ -2,7 +2,7 @@ import { AudioLoader } from './src/index';
 AudioLoader(['assets/loading.mp3'], {
   withVisualization: true,
   oneSoundPerRequest: false,
-  withProgressBar: true,
+  withLoadingBar: true,
   colors: {
     primary: '#f77925',
     secondary: '#ffd147',

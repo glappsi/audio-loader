@@ -2,14 +2,14 @@ import xhrIntercept from './interceptors/xhr';
 import fetchIntercept from './interceptors/fetch';
 import { Playlist } from './models/playlist';
 import { IOptions } from './models/options';
-import { show, hide } from './visualization/progress-bar';
+import { show, hide } from './visualization/loading-bar';
 
 export function AudioLoader(
   sources: string[],
   options: IOptions = {
     withVisualization: true,
     oneSoundPerRequest: false,
-    withProgressBar: false
+    withLoadingBar: false
   }
 ) {
   const playlist = new Playlist(sources, options);
@@ -17,7 +17,7 @@ export function AudioLoader(
   const start = () => {
     // just start this for the first request
     if (requestsCount === 0) {
-      if (options.withProgressBar) {
+      if (options.withLoadingBar) {
         show(options.colors || {});
       }
       playlist.play();
@@ -32,7 +32,7 @@ export function AudioLoader(
       return;
     }
 
-    if (options.withProgressBar) {
+    if (options.withLoadingBar) {
       hide();
     }
     playlist.pause();
@@ -43,3 +43,5 @@ export function AudioLoader(
 }
 
 export const DISABLE_HEADER = 'X-AUDIO-LOADER-OFF';
+
+export * from './models/options';

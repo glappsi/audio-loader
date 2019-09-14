@@ -1,7 +1,7 @@
 export interface IOptions {
   withVisualization: boolean;
   oneSoundPerRequest: boolean;
-  withProgressBar: boolean;
+  withLoadingBar: boolean;
   colors?: {
     primary: string;
     secondary: string;

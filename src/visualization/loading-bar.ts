@@ -44,7 +44,7 @@ const HTML = (colors: any) => `
   <style>
     ${STYLES(colors)}
   </style>
-  <div id="al-progress-bar" class="slider">
+  <div id="al-loading-bar" class="slider">
     <div class="line"></div>
     <div class="subline inc"></div>
     <div class="subline dec"></div>
@@ -54,7 +54,7 @@ const HTML = (colors: any) => `
 let BAR: HTMLDivElement;
 
 function setBar() {
-  BAR = document.querySelector('#al-progress-bar') as HTMLDivElement;
+  BAR = document.querySelector('#al-loading-bar') as HTMLDivElement;
 }
 
 function showBar() {
