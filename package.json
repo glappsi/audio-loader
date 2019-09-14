@@ -1,5 +1,5 @@
 {
-  "name": "@audio/loader",
+  "name": "@aurally/audio-loader",
   "version": "1.0.0",
   "description": "play songs while fetching data, with visualization",
   "main": "dist/index.js",
