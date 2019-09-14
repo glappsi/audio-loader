@@ -45,11 +45,11 @@ export interface IOptions {
 ```
 
 | property       | explanation    |
-| :------------- | ----------: |
+| ------------- | ---------- |
 | withVisualization | enables/disables the wave animation |
-| oneSoundPerRequest   | does not pauses the current sound after the request finished, plays it till it ends. Does not start a new sound after. |
+| oneSoundPerRequest   | does not pauses the current sound after the request finished.<br>plays it till it ends. Does not start a new sound after. |
 | withLoadingBar | enables/disables the loading bar |
-| colors | lets you set the wave animation/ loading bar colors. primary will be used for both, loading bar and wave. the rest is wave only. |
+| colors | lets you set the wave animation/ loading bar colors.<br>primary will be used for both, loading bar and wave.<br> secondary and wave is wave only |
 
 ## Disable for specific request
 If you want to disable this library for specific requests, just import the `DISABLE_HEADER` and set any value to it.

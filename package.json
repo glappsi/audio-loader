@@ -1,6 +1,6 @@
 {
   "name": "@aurally/audio-loader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "play songs while fetching data, with visualization",
   "main": "dist/index.js",
   "scripts": {
