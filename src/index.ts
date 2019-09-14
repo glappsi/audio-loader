@@ -18,7 +18,7 @@ export function AudioLoader(
     // just start this for the first request
     if (requestsCount === 0) {
       if (options.withProgressBar) {
-        show();
+        show(options.colors || {});
       }
       playlist.play();
     }

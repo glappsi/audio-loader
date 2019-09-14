@@ -1,6 +1,6 @@
 import domReady from '../lib/dom-ready';
 
-const STYLES = `
+const STYLES = (colors: any) => `
   .slider{
     position: fixed;
     top: 0;
@@ -12,14 +12,15 @@ const STYLES = `
   .line{
     position:absolute;
     opacity: 0.4;
-    background:#4a8df8;
+    background:${colors.primary || '#3f51b5'};
     width:150%;
     height:5px;
   }
 
   .subline{
     position:absolute;
-    background:#4a8df8;
+    background:${colors.primary || '#3f51b5'};
+    box-shadow: 0 0 10px 1px ${colors.primary || '#3f51b5'};
     height:5px; 
   }
   .inc{
@@ -39,9 +40,9 @@ const STYLES = `
   }
 `;
 
-const HTML = `
+const HTML = (colors: any) => `
   <style>
-    ${STYLES}
+    ${STYLES(colors)}
   </style>
   <div id="al-progress-bar" class="slider">
     <div class="line"></div>
@@ -50,19 +51,22 @@ const HTML = `
   </div>
 `;
 
-let LOADED = false;
+let BAR: HTMLDivElement;
 
-function showBar() {
-  const bar = document.querySelector('#al-progress-bar') as HTMLDivElement;
-  bar.style.display = 'block';
+function setBar() {
+  BAR = document.querySelector('#al-progress-bar') as HTMLDivElement;
 }
 
-export function show() {
-  if (!LOADED) {
+function showBar() {
+  BAR.style.display = 'block';
+}
+
+export function show(colors: any = {}) {
+  if (!BAR) {
     domReady().then(() => {
-      document.body.insertAdjacentHTML('beforeend', HTML);
+      document.body.insertAdjacentHTML('beforeend', HTML(colors));
+      setBar();
       showBar();
-      LOADED = true;
     });
   } else {
     showBar();
@@ -70,6 +74,5 @@ export function show() {
 }
 
 export function hide() {
-  const bar = document.querySelector('#al-progress-bar') as HTMLDivElement;
-  bar.style.display = 'none';
+  BAR.style.display = 'none';
 }

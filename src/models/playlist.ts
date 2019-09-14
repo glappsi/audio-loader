@@ -22,7 +22,11 @@ export class Playlist {
     this.sounds = sources.map(s => this.createSound(s));
 
     if (this.options.withVisualization) {
-      this.circularWave = new CircularAudioWave(Howler.ctx, Howler.masterGain);
+      this.circularWave = new CircularAudioWave(
+        Howler.ctx,
+        Howler.masterGain,
+        options.colors || {}
+      );
     }
   }
 

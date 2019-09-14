@@ -8,121 +8,8 @@ export class CircularAudioWave {
   minChartValue = 100;
   playing = false;
   lineColorOffset = 0;
-  bgColor = '#2E2733';
-  chartOptions = {
-    angleAxis: {
-      type: 'value',
-      clockwise: false,
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      axisLabel: {
-        show: false
-      },
-      splitLine: {
-        show: false
-      }
-    },
-    radiusAxis: {
-      min: 0,
-      max: this.maxChartValue + 50,
-      axisLine: {
-        show: false
-      },
-      axisTick: {
-        show: false
-      },
-      axisLabel: {
-        show: false
-      },
-      splitLine: {
-        show: false
-      }
-    },
-    polar: {
-      radius: '100%'
-    },
-    series: [
-      {
-        coordinateSystem: 'polar',
-        name: 'line',
-        type: 'line',
-        showSymbol: false,
-        lineStyle: {
-          color: {
-            colorStops: [
-              {
-                offset: 0.7,
-                color: '#e91e63'
-              },
-              {
-                offset: 0.3,
-                color: '#3f51b5'
-              }
-            ]
-          },
-          shadowColor: 'blue',
-          shadowBlur: 10
-        },
-        zlevel: 2,
-        data: Array.from(new Array(361), (item, i) => {
-          return [this.minChartValue, i];
-        }),
-        silent: true,
-        hoverAnimation: false
-      },
-      {
-        coordinateSystem: 'polar',
-        name: 'maxbar',
-        type: 'line',
-        showSymbol: false,
-        lineStyle: {
-          color: '#87b9ca',
-          shadowColor: '#87b9ca',
-          shadowBlur: 10
-        },
-        data: Array.from(new Array(361), (item, i) => {
-          return [this.minChartValue, i];
-        }),
-        silent: true,
-        hoverAnimation: false
-      },
-      {
-        coordinateSystem: 'polar',
-        name: 'interior',
-        type: 'effectScatter',
-        showSymbol: false,
-        data: [0],
-        symbolSize: 100,
-        rippleEffect: {
-          period: 3.5,
-          scale: 3
-        },
-        itemStyle: {
-          color: {
-            type: 'radial',
-            colorStops: [
-              {
-                offset: 0,
-                color: '#87b9ca'
-              },
-              {
-                offset: 1,
-                color: 'white'
-              }
-            ]
-          }
-        },
-        silent: true,
-        hoverAnimation: false,
-        animation: false
-      }
-    ]
-  };
-  currentChartOptions = JSON.parse(JSON.stringify(this.chartOptions));
+  chartOptions: any;
+  currentChartOptions: any;
   context: AudioContext;
   chart: any;
   sourceNode?: AudioBufferSourceNode;
@@ -132,7 +19,11 @@ export class CircularAudioWave {
   container: HTMLDivElement;
   canvas: HTMLCanvasElement;
 
-  constructor(audioContext: AudioContext, masterGain: GainNode) {
+  constructor(
+    audioContext: AudioContext,
+    masterGain: GainNode,
+    colors: any = {}
+  ) {
     const { container, canvas } = this.createContainer();
     this.container = container;
     this.canvas = canvas;
@@ -147,6 +38,8 @@ export class CircularAudioWave {
       }
     });
 
+    this.chartOptions = this.buildChartOptions(colors);
+    this.currentChartOptions = JSON.parse(JSON.stringify(this.chartOptions));
     this.context = audioContext;
     this.chart = init(this.canvas);
     this.chart.setOption(this.chartOptions, true);
@@ -272,6 +165,123 @@ export class CircularAudioWave {
     return {
       maxR: maxR,
       data: waveData
+    };
+  }
+
+  buildChartOptions(colors: any) {
+    const { wave = {} } = colors || {};
+    return {
+      angleAxis: {
+        type: 'value',
+        clockwise: false,
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        }
+      },
+      radiusAxis: {
+        min: 0,
+        max: this.maxChartValue + 50,
+        axisLine: {
+          show: false
+        },
+        axisTick: {
+          show: false
+        },
+        axisLabel: {
+          show: false
+        },
+        splitLine: {
+          show: false
+        }
+      },
+      polar: {
+        radius: '100%'
+      },
+      series: [
+        {
+          coordinateSystem: 'polar',
+          name: 'line',
+          type: 'line',
+          showSymbol: false,
+          lineStyle: {
+            color: {
+              colorStops: [
+                {
+                  offset: 0.7,
+                  color: colors.secondary || '#e91e63'
+                },
+                {
+                  offset: 0.3,
+                  color: colors.primary || '#3f51b5'
+                }
+              ]
+            },
+            shadowColor: wave.shadow || 'blue',
+            shadowBlur: 10
+          },
+          zlevel: 2,
+          data: Array.from(new Array(361), (item, i) => {
+            return [this.minChartValue, i];
+          }),
+          silent: true,
+          hoverAnimation: false
+        },
+        {
+          coordinateSystem: 'polar',
+          name: 'maxbar',
+          type: 'line',
+          showSymbol: false,
+          lineStyle: {
+            color: wave.accent || '#87b9ca',
+            shadowColor: wave.accent || '#87b9ca',
+            shadowBlur: 10
+          },
+          data: Array.from(new Array(361), (item, i) => {
+            return [this.minChartValue, i];
+          }),
+          silent: true,
+          hoverAnimation: false
+        },
+        {
+          coordinateSystem: 'polar',
+          name: 'interior',
+          type: 'effectScatter',
+          showSymbol: false,
+          data: [0],
+          symbolSize: 100,
+          rippleEffect: {
+            period: 3.5,
+            scale: 3
+          },
+          itemStyle: {
+            color: {
+              type: 'radial',
+              colorStops: [
+                {
+                  offset: 0,
+                  color: wave.accent || '#87b9ca'
+                },
+                {
+                  offset: 1,
+                  color: 'white'
+                }
+              ]
+            }
+          },
+          silent: true,
+          hoverAnimation: false,
+          animation: false
+        }
+      ]
     };
   }
 }
