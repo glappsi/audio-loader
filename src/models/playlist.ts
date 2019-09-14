@@ -85,12 +85,15 @@ export class Playlist {
       return;
     }
 
-    if (!playable.playing()) {
-      return;
-    }
-
     if (this.circularWave) {
       this.circularWave.stop();
+    }
+
+    // do not fade and pause when not playing to not cause sideeffects
+    // but calling after stopping the wave since that could be
+    // called during two sounds, with the wave still active
+    if (!playable.playing()) {
+      return;
     }
     playable.fade(1, 0, this.fadeOutInMs);
     setTimeout(() => {
