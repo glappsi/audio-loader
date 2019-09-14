@@ -9,13 +9,13 @@ Have a look at the [DEMO](https://glappsi.github.io/audio-loader/).
 
 ## Installation
 ```
-npm i --save @audio/loader
+npm i --save @aurally/audio-loader
 ```
 
 ## Usage
 Call it once, at the start of your application
 ```
-import { AudioLoader } from '@audio/loader';
+import { AudioLoader } from '@aurally/audio-loader';
 AudioLoader(['assets/loading.mp3'], <options>);
 ```
 

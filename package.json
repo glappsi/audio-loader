@@ -1,11 +1,13 @@
 {
   "name": "@aurally/audio-loader",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "play songs while fetching data, with visualization",
   "main": "dist/index.js",
   "scripts": {
     "start": "webpack --config webpack.config.js --watch",
     "build": "tsc",
+    "postbuild": "npx version-bump-prompt",
+    "prepublish": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
