@@ -2,4 +2,3 @@ node_modules
 dist
 dist-es2015
 .DS_Store
-assets
