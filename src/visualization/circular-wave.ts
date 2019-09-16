@@ -1,5 +1,5 @@
 import { init } from 'echarts';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 import domReady from '../lib/dom-ready';
 
 export class CircularAudioWave {
