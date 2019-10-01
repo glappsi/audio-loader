@@ -30,7 +30,7 @@
   },
   "types": "dist/index.d.ts",
   "author": "Florian Glappa <glappa.js@gmail.com>",
-  "license": "ISC",
+  "license": "GPLv3",
   "devDependencies": {
     "@types/echarts": "^4.1.12",
     "@types/howler": "^2.1.1",
